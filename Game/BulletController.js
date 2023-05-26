@@ -9,7 +9,7 @@ export default class BulletController{
         this.bulletColor = bulletColor;
         this.soundEnab = soundEnab;
 
-        this.shootSound = new Audio("Sonido/shoot.mp3");
+        this.shootSound = new Audio("../Sonido/shoot.mp3");
         this.shootSound.volume = 0.3;
         this.imagenbala = imagenbala;
 

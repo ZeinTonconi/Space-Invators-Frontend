@@ -9,10 +9,10 @@ canvas.width = 1754;
 canvas.height = 1240;
 
 const background = new Image();
-background.src = "imagenes/rjscenary.png";
+background.src = "../imagenes/rjscenary.png";
 
-const balaDelJugador = new BulletController(canvas,10,"red",true,"imagenes/balaestrella.png");
-const enemybulletcontroller = new BulletController(canvas,4,"white",false,"imagenes/balaenemigo.png");
+const balaDelJugador = new BulletController(canvas,10,"red",true,"../imagenes/balaestrella.png");
+const enemybulletcontroller = new BulletController(canvas,4,"white",false,"../imagenes/balaenemigo.png");
 const powerUpcontroller = new PowerUpController(canvas,"");
 const controladoreEnemigo = new enemycontroller(
     canvas, 

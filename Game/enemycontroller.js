@@ -29,7 +29,7 @@ export default class enemycontroller {
         this.canvas = canvas;
         this.enemybulletcontroller = enemybulletcontroller;
         this.balaDelJugador = balaDelJugador;
-        this.enemyDeathSound = new Audio ('Sonido/enemydeath.mp3');
+        this.enemyDeathSound = new Audio ('../Sonido/enemydeath.mp3');
         this.enemyDeathSound.volume = 0.5;
         this.createEnemies();
 

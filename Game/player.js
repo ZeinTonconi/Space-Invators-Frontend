@@ -13,7 +13,7 @@ export default class player{
         this.width = 200;
         this.height = 200;
         this.image = new Image();
-        this.image.src="imagenes/naverj.png";
+        this.image.src="../imagenes/naverj.png";
 
         document.addEventListener("keydown",this.keydown);
         document.addEventListener("keyup", this.keyup);

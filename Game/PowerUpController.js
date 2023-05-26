@@ -72,7 +72,7 @@ export default class PowerUpController{
     
         if(Math.random() >= 0.75){
             const powerUpIndex = 1//Math.floor(Math.random() * 3);
-            const powerUp = new PowerUp(this.canvas,x,y,velocity,`/imagenes/${this.imgPowerUps[powerUpIndex]}`,this.typesPowerUps[powerUpIndex]);
+            const powerUp = new PowerUp(this.canvas,x,y,velocity,`../imagenes/${this.imgPowerUps[powerUpIndex]}`,this.typesPowerUps[powerUpIndex]);
             this.powerUps.push(powerUp);
         }
         // if(this.soundEnab){
