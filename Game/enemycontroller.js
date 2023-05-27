@@ -18,14 +18,14 @@ export default class enemycontroller {
     currentDirection = MovingDirection.right;
     xVelocity = 0;
     yVelocity = 0;
-    defaultXVelocity = 1;
+    // defaultXVelocity = 1;
     defaultYVelocity = 1;
     moveDownTimerDefault = 30;
     moveDownTimer = this.moveDownTimerDefault;
-    fireBulletTimerDefault = 100;
-    fireBulletTimer = this.fireBulletTimerDefault;
+    // fireBulletTimerDefault = 100;
+    // fireBulletTimer = this.fireBulletTimerDefault;
 
-    constructor(canvas,enemybulletcontroller, balaDelJugador, balaDelGhost, powerUpController){
+    constructor(canvas,enemybulletcontroller, balaDelJugador, balaDelGhost, powerUpController, defaultVelocity, fireBulletTimerDefault){
         this.canvas = canvas;
         this.enemybulletcontroller = enemybulletcontroller;
         this.balaDelJugador = balaDelJugador;
@@ -36,6 +36,9 @@ export default class enemycontroller {
 
         this.powerUpController=powerUpController
         
+        this.defaultXVelocity = defaultVelocity;
+        this.fireBulletTimerDefault = fireBulletTimerDefault;
+        this.fireBulletTimer = fireBulletTimerDefault;
     }
 
     draw(ctx){

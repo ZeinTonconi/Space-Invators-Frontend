@@ -1,7 +1,7 @@
 import Bullet from "./Bullet.js";
 
 export default class Ghost {
-    constructor(canvas,velocity, bulletController){
+    constructor(imgGhost,canvas,velocity, bulletController){
         this.canvas = canvas;
         this.velocity = velocity;
         this.bulletController = bulletController
@@ -11,7 +11,7 @@ export default class Ghost {
         this.width = 200;
         this.height = 200;
         this.image = new Image();
-        this.image.src="../imagenes/naverj.png";
+        this.image.src=`../imagenes/nave${imgGhost}.png`;
     }
 
     shoot(){

@@ -6,7 +6,7 @@ export default class player{
     rightPressed = false;
     leftPressed = false;
     shootPressed = false;
-    constructor(canvas,velocity, bulletController, ghost){
+    constructor(imgPlayer,canvas,velocity, bulletController, ghost){
         this.canvas=canvas;
         this.velocity=velocity;
         this.bulletController=bulletController;
@@ -16,7 +16,7 @@ export default class player{
         this.width = 200;
         this.height = 200;
         this.image = new Image();
-        this.image.src="../imagenes/naverj.png";
+        this.image.src=`../imagenes/nave${imgPlayer}.png`;
 
         this.ghost = ghost
         document.addEventListener("keydown",this.keydown);

@@ -10,22 +10,54 @@ canvas.width = 1754;
 canvas.height = 1240;
 
 const background = new Image();
-background.src = "../imagenes/rjscenary.png";
+
+const urlParams = new URLSearchParams(window.location.search);
+const nivel = urlParams.get('nivel')
+
+let imgPlayer, bulletTimer, enemyVel, maxBullets;
+if(nivel == 1){
+    imgPlayer = `koya`;
+    bulletTimer = 100;
+    enemyVel = 1;
+    maxBullets = 4
+}
+if(nivel == 2) {
+    imgPlayer = `mang`;
+    bulletTimer = 80;
+    enemyVel = 5;
+    maxBullets = 6
+}
+if(nivel == 3) {
+    imgPlayer = 'rj';
+    bulletTimer = 60;
+    enemyVel = 7;
+    maxBullets = 8
+}
+if(nivel == 4) {
+    imgPlayer = 'shooky'
+    bulletTimer = 40;
+    enemyVel = 10;
+    maxBullets = 10
+}
+
+const pathImgBackGround = `../imagenes/${imgPlayer}scenary.png`
+background.src = pathImgBackGround;
 
 const balaDelJugador = new BulletController(canvas,10,"red",true,"../imagenes/balaestrella.png");
 const balaDelGhost = new BulletController(canvas, 10, "red", true, "../imagenes/balaestrella.png");
-const enemybulletcontroller = new BulletController(canvas,4,"white",false,"../imagenes/balaenemigo.png");
+const enemybulletcontroller = new BulletController(canvas,maxBullets,"white",false,"../imagenes/balaenemigo.png");
 const powerUpcontroller = new PowerUpController(canvas,"");
 const controladoreEnemigo = new enemycontroller(
     canvas, 
     enemybulletcontroller, 
     balaDelJugador,
     balaDelGhost,
-    powerUpcontroller
+    powerUpcontroller,
+    enemyVel, bulletTimer
 );
 
-const ghost = new Ghost(canvas, 3, balaDelGhost);
-const jugador = new player(canvas, 3, balaDelJugador, ghost);
+const ghost = new Ghost(imgPlayer, canvas, 3, balaDelGhost);
+const jugador = new player(imgPlayer,canvas, 3, balaDelJugador, ghost);
 
 powerUpcontroller.setEnemyController(controladoreEnemigo);
 powerUpcontroller.setJugador(jugador);
