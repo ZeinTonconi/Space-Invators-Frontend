@@ -7,7 +7,7 @@ export default class PowerUpController{
 
     powerUps = [];
 
-    constructor(canvas, soundEnab, enemyController){
+    constructor(canvas, soundEnab){
         this.canvas = canvas;
         // this.soundEnab = soundEnab;
 
@@ -18,6 +18,10 @@ export default class PowerUpController{
 
     setEnemyController(enemyController){
         this.enemyController = enemyController;
+    }
+
+    setJugador(jugador){
+        this.jugador = jugador;
     }
 
     draw(ctx){
@@ -54,6 +58,9 @@ export default class PowerUpController{
 
             }
 
+            if(this.powerUps[powerUpThatHitSpriteIndex].type == 'nave'){
+                this.jugador.ghostear();
+            }
 
             let score = parseInt(document.getElementById("score").innerHTML);
             score += this.scorePowerUps[powerUpThatHitSpriteIndex];
@@ -71,7 +78,7 @@ export default class PowerUpController{
     shoot(x,y,velocity){
     
         if(Math.random() >= 0.75){
-            const powerUpIndex = 1//Math.floor(Math.random() * 3);
+            const powerUpIndex = 2// Math.floor(Math.random() * 3);
             const powerUp = new PowerUp(this.canvas,x,y,velocity,`../imagenes/${this.imgPowerUps[powerUpIndex]}`,this.typesPowerUps[powerUpIndex]);
             this.powerUps.push(powerUp);
         }

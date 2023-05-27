@@ -65,4 +65,5 @@ export default class BulletController{
             this.timeTillNextBulletAllowed = timeTillNextBulletAllowed;
         }
     }
+
 }

@@ -25,10 +25,11 @@ export default class enemycontroller {
     fireBulletTimerDefault = 100;
     fireBulletTimer = this.fireBulletTimerDefault;
 
-    constructor(canvas,enemybulletcontroller, balaDelJugador, powerUpController){
+    constructor(canvas,enemybulletcontroller, balaDelJugador, balaDelGhost, powerUpController){
         this.canvas = canvas;
         this.enemybulletcontroller = enemybulletcontroller;
         this.balaDelJugador = balaDelJugador;
+        this.balaDelGhost = balaDelGhost
         this.enemyDeathSound = new Audio ('../Sonido/enemydeath.mp3');
         this.enemyDeathSound.volume = 0.5;
         this.createEnemies();
@@ -47,23 +48,29 @@ export default class enemycontroller {
       //console.log(this.moveDownTimer);
     }
 
+    eliminarEnemigo(enemy, enemyIndex, enemyRow){
+        this.enemyDeathSound.currentTime = 0;
+        this.enemyDeathSound.play();
+        enemyRow.splice(enemyIndex,1);
+
+        this.powerUpController.shoot(enemy.x, enemy.y, -3)
+        console.log("Generando Power Up")
+
+        let score = parseInt(document.getElementById("score").innerHTML);
+        score += 500;
+        document.getElementById("score").innerHTML = score;
+    }
+
     collisiondetection(){
         this.enemyRows.forEach(enemyRow=>{
             enemyRow.forEach((enemy, enemyIndex)=>{
                 if(this.balaDelJugador.collideWith(enemy)){
-                   
-                    this.enemyDeathSound.currentTime = 0;
-                    this.enemyDeathSound.play();
-                    enemyRow.splice(enemyIndex,1);
-
-                    this.powerUpController.shoot(enemy.x, enemy.y, -3)
-                    console.log("Generando Power Up")
-
-                    let score = parseInt(document.getElementById("score").innerHTML);
-                    score += 500;
-                    document.getElementById("score").innerHTML = score;
+                    this.eliminarEnemigo(enemy,enemyIndex,enemyRow)
                 }
 
+                if(this.balaDelGhost.collideWith(enemy)){
+                    this.eliminarEnemigo(enemy,enemyIndex,enemyRow)
+                }                
 
             });
         });

@@ -2,6 +2,7 @@ import enemycontroller from "./enemycontroller.js";
 import player from "./player.js";
 import BulletController from "./BulletController.js";
 import PowerUpController from "./PowerUpController.js";
+import Ghost from "./Ghost.js";
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
@@ -12,20 +13,29 @@ const background = new Image();
 background.src = "../imagenes/rjscenary.png";
 
 const balaDelJugador = new BulletController(canvas,10,"red",true,"../imagenes/balaestrella.png");
+const balaDelGhost = new BulletController(canvas, 10, "red", true, "../imagenes/balaestrella.png");
 const enemybulletcontroller = new BulletController(canvas,4,"white",false,"../imagenes/balaenemigo.png");
 const powerUpcontroller = new PowerUpController(canvas,"");
 const controladoreEnemigo = new enemycontroller(
     canvas, 
     enemybulletcontroller, 
     balaDelJugador,
+    balaDelGhost,
     powerUpcontroller
 );
-powerUpcontroller.setEnemyController(controladoreEnemigo)
 
-const jugador = new player(canvas, 3, balaDelJugador);
+const ghost = new Ghost(canvas, 3, balaDelGhost);
+const jugador = new player(canvas, 3, balaDelJugador, ghost);
+
+powerUpcontroller.setEnemyController(controladoreEnemigo);
+powerUpcontroller.setJugador(jugador);
+
 let isGameOver = false;
 let didwin = false;
 let shownGameOver = false;
+
+const msgs = ["No te rindas", "Levantate", "No puedes rendirte"];
+
 function game(){
     checkGameOver();
     ctx.drawImage(background,0,0,canvas.width, canvas.height);
@@ -34,6 +44,7 @@ function game(){
         controladoreEnemigo.draw(ctx);
         jugador.draw(ctx);
         balaDelJugador.draw(ctx);
+        balaDelGhost.draw(ctx);
         enemybulletcontroller.draw(ctx);
 
         
@@ -51,13 +62,19 @@ function displayGameOver(){
         const div = document.createElement('div');
         div.className = "newPlayer"
 
-        div.innerHTML = `<h1>Game Over</h1>
-                        <label>Ingrese su nombre</label>
+        const idMsg = Math.floor(Math.random()*3);
+        div.innerHTML = `<h1>${msgs[idMsg]}</h1>
+                        <label>Me Rindo :(</label>
                         <br>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Maff" id="nombreJugador" >
                             <button class="btn btn-outline-secondary ok" type="button" id="enviarJugador">OK</button>
-                        </div>`
+                            <br>
+                        </div>
+                        <div class="input-group">
+                            <button>Reintentar</button>
+                        </div>
+                        `
         document.body.appendChild(div);
         document.getElementById('enviarJugador').onclick=enviar;
 
