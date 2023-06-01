@@ -15,7 +15,7 @@ const draw = () => {
 
 document.addEventListener("keyup", function(event) {
     if (event.code === 'Enter') {
-        window.location.href = './Game/index.html'
+        window.location.href = './Game/index.html?nivel=1'
     }
 });
 

@@ -87,17 +87,51 @@ function game(){
 }
 
 function displayGameOver(){
-    if(isGameOver && !shownGameOver){
 
-        shownGameOver = true;
+    if(shownGameOver) 
+        return;
+    
+    shownGameOver = true;
+    
+    if(didwin){
+        const div = document.createElement('div');
+        div.className = "newPlayer"
+
+        if(parseInt(nivel)==4){
+            div.innerHTML = `
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Maff" id="nombreJugador" >
+                                <button class="btn btn-outline-secondary ok" type="button" id="enviarJugador">OK</button>
+                                <br>
+                            </div>
+                            `
+            document.body.appendChild(div);
+            document.getElementById('enviarJugador').onclick=enviar;
+        }
+        else{
+                
+            div.innerHTML = `
+                            <button type="button" class="btn btn-primary btn-lg btn-block" id="siguienteNivel">Next Level</button>
+                            `
+
+            div.style = ` 
+            display: flex;
+            justify-content: center;
+            `
+            document.body.appendChild(div);
+            document.getElementById('siguienteNivel').onclick = siguienteNivel;
+        }
+
+        console.log(div);
+    }
+
+    if(!didwin){
 
         const div = document.createElement('div');
         div.className = "newPlayer"
 
         const idMsg = Math.floor(Math.random()*3);
-        div.innerHTML = `<h1>${msgs[idMsg]}</h1>
-                        <label>Me Rindo :(</label>
-                        <br>
+        div.innerHTML = `
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Maff" id="nombreJugador" >
                             <button class="btn btn-outline-secondary ok" type="button" id="enviarJugador">OK</button>
@@ -136,6 +170,8 @@ function checkGameOver(){
 
     }
 
+    controladoreEnemigo.enemyRows = [];
+
     if(controladoreEnemigo.enemyRows.length === 0){
         didwin = true;
         isGameOver = true;
@@ -160,12 +196,20 @@ const enviar = async () => {
             body: JSON.stringify(jugador)
         });   
         console.log("Enviado")
-        window.location.href = 'http://localhost:5500/ScoreBoard/score.html'
+        window.location.href = '../ScoreBoard/score.html'
     } catch (error) {
         console.log(error);
     }
     
 }   
+
+function siguienteNivel() {
+    if(parseInt(nivel)==4){
+        console.log("Fin del juego");
+        return;
+    }
+    window.location.href = `./index.html?nivel=${parseInt(nivel)+1}`
+}
 
 setInterval(game,1000/60);
 
